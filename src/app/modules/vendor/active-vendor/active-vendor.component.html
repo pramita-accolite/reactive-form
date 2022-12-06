@@ -1,43 +1,45 @@
 <div class="container">
-<div class="row">
-<div class="col-md-6">
-<form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-    <div class="mb-3">
-    <input type ="text" placeholder= "enter name" formControlName="name">
-   <br>
-   <span style = "color : red" *ngIf="name && name.invalid && name.touched"> This field is not valid</span>
+    <div class="row">
+        <div class="col-md-6">
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3 mt-5">
+                <label for="name" class="form-label">Name</label>
+                <small class="error" [class.d-none]="name?.valid || name?.untouched">Name is a required field</small>
+                <input type="text" class="form-control" id="name" placeholder=""
+                formControlName="name" [class.is-invalid]="name?.invalid && name?.touched">
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Email</label>
+                <small class="error" [class.d-none]="email?.valid || email?.untouched">Email is a required field and should be in a correct format</small>
+                <input type="email" class="form-control" id="username" placeholder=""
+                formControlName="email" [class.is-invalid]="email?.invalid && email?.touched">
+            </div>
+            <div class="mb-3">
+                <label for="bio" class="form-label">Bio</label>
+                <small class="error" [class.d-none]="bio?.valid || bio?.untouched">Bio is a required field</small>
+                <textarea class="form-control" id="bio" rows="3"
+                formControlName="bio" [class.is-invalid]="bio?.invalid && bio?.touched"></textarea>
+            </div>
+            <div class="mb-3">
+                <small class="error" [class.d-none]="domain?.valid || domain?.untouched">Please choose a domain</small>
+                <select class="form-select"  aria-label="Default select example"
+                formControlName="domain" [class.is-invalid]="domain?.invalid && domain?.touched">
+                    <option value="">Please Select Domain</option>
+                    <option value="erp">ERP</option>
+                    <option value="crm">CRM</option>
+                    <option value="ecommerce">E-commerce</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <button type="submit" [disabled]="profileForm.invalid" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        </div>
+        <div class="col-md-6 mt-4">
+            <h4>Form Submission Details!</h4>
+            <div *ngFor="let d of data | keyvalue">
+                {{d.key}} : {{d.value}}
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <input type ="text" placeholder= "enter email" formControlName="email">
-        <br>
-        <span style = "color : red" *ngIf="email && email.invalid && email.touched"> This field is not valid</span>
-        
-    </div>
-    <div class="mb-3">
-        <input style = "color : red" type ="text" placeholder= "enter bio" formControlName="bio">
-        <br>
-        <span style = "color : red" *ngIf="bio && bio.invalid && bio.touched"> This field is not valid</span>
-        
-    </div>
-    
-    Select a topic:
-    <select ng-model="myVar">
-      <option value="">
-      <option value="ERP">ERP
-      <option value="E-commerce">E-commerce
-      <option value="CRM">CRM
-    </select>
-    <br> <br>
-    <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary">Submit</button>
-</form> 
-</div>
-
-
-<div class="col-md-6">
-    <h1>
-       <div *ngFor = "let v of myVal | keyvalue">
-        {{v.key}} : {{v.value}}
-       </div>
-    </h1>
-</div>
 </div>
